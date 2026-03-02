@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>A Letter For You 🤍</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+AU+NSW:wght@400&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    background-image: url("b.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Instruction */
+#instruction {
+    font-family: "Playwrite AU NSW", cursive;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* Stage container */
+#stage {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Images */
+.stage-img {
+    width: 100%;
+    max-width: 800px;
+    display: block;
+    margin: auto;
+}
+
+/* Letter text */
+#letterText {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    width: 80%;
+    font-family: "Playwrite AU NSW", cursive;
+    font-size: 20px;
+    line-height: 1.9;
+    text-align: left;
+}
+
+/* Continue Frame */
+#continueFrame {
+    margin-top: 50px;
+    width: 90%;
+    max-width: 500px;
+    height: 150px;
+    background: url("cframe.png") no-repeat center;
+    background-size: 100% 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#continueBtn {
+    font-family: "Playwrite AU NSW", cursive;
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    background-color: pink;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#continueBtn:hover {
+    background-color: hotpink;
+    color: white;
+}
+
+/* Hidden */
+.hidden {
+    display: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    #letterText {
+        font-size: 17px;
+        top: 12%;
+        left: 8%;
+        width: 84%;
+    }
+
+    #continueFrame {
+        height: 120px;
+    }
+
+    #continueBtn {
+        font-size: 16px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="instruction">Click to Open the Letter 🤍</div>
+
+<div id="stage">
+
+    <img src="cover.png" id="cover" class="stage-img" onclick="openLetter()">
+
+    <img src="opened_cover.png" id="openedCover" class="stage-img hidden">
+
+    <img src="letter.jpg" id="letter" class="stage-img hidden">
+
+    <div id="letterText" class="hidden"></div>
+
+</div>
+
+<!-- Continue Frame -->
+<div id="continueFrame">
+    <button id="continueBtn" onclick="goNext()">Continue 🤍</button>
+</div>
+
+<!-- Audio -->
+<audio id="bgMusic">
+    <source src="2nd.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const lines = [
+"Happy Birthday, Nafila 🤍",
+"",
+"Today is about celebrating you — the person who brings warmth, strength, and light into my life in ways you probably don’t even realize.",
+"You matter to me more than I can properly put into words.",
+"From where we started to where we are now, we’ve grown stronger, closer, and more understanding — and that means everything to me.",
+"",
+"I truly wish that you get everything your heart desires.",
+"Every dream, every goal, every small happiness you secretly pray for — I hope life gives it to you in abundance.",
+"You deserve a life full of peace, success, love, and endless smiles.",
+"",
+"No matter where life takes us, just know this:",
+"I’ll always be there for you whenever you need me.",
+"Through the highs, the lows, and everything in between.",
+"",
+"Stay happy. Stay shining. Stay you.",
+"And may this year be the most beautiful one yet."
+];
+
+function openLetter() {
+
+    // Hide instruction
+    document.getElementById("instruction").style.display = "none";
+
+    // Play second music
+    document.getElementById("bgMusic").play();
+
+    // Hide cover
+    document.getElementById("cover").style.display = "none";
+
+    const opened = document.getElementById("openedCover");
+    opened.classList.remove("hidden");
+
+    setTimeout(() => {
+
+        opened.style.display = "none";
+
+        document.getElementById("letter").classList.remove("hidden");
+        document.getElementById("letterText").classList.remove("hidden");
+
+        typeLines();
+
+    }, 1200);
+}
+
+function typeLines() {
+
+    const container = document.getElementById("letterText");
+    let lineIndex = 0;
+
+    function typeLine() {
+
+        if (lineIndex < lines.length) {
+
+            const p = document.createElement("div");
+            container.appendChild(p);
+
+            let charIndex = 0;
+
+            function typeChar() {
+                if (charIndex < lines[lineIndex].length) {
+                    p.innerHTML += lines[lineIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeChar, 25);
+                } else {
+                    lineIndex++;
+                    setTimeout(typeLine, 600);
+                }
+            }
+
+            typeChar();
+
+        } else {
+            showContinue();
+        }
+    }
+
+    typeLine();
+}
+
+function showContinue() {
+    document.getElementById("continueFrame").style.display = "flex";
+}
+
+function goNext() {
+    window.location.href = "Journey.html"; // change if needed
+}
+
+</script>
+
+</body>
+</html>

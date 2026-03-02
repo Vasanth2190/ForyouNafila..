@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Journey of Life ❤️</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 🔥 PRELOAD IMPORTANT ASSETS -->
+<link rel="preload" as="image" href="jb.png">
+<link rel="preload" as="image" href="R.png">
+<link rel="preload" as="image" href="cframe.png">
+<link rel="preload" as="image" href="frame.png">
+<link rel="preload" as="image" href="Fframe.png">
+<link rel="preload" as="image" href="tframe.png">
+
+<link rel="preload" as="image" href="1.JPG">
+<link rel="preload" as="image" href="2.JPG">
+<link rel="preload" as="image" href="3.JPG">
+<link rel="preload" as="image" href="4.jpeg">
+<link rel="preload" as="image" href="6.jpeg">
+<link rel="preload" as="image" href="7.jpg">
+
+<link rel="preload" as="video" href="5.mp4" type="video/mp4">
+<link rel="preload" as="audio" href="j.mp3" type="audio/mpeg">
+
+<link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&family=Pacifico&family=Oooh+Baby&display=swap" rel="stylesheet">
+
+<style>
+
+/* (Your entire CSS remains EXACTLY the same — unchanged) */
+
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family: sans-serif;
+    background-image: url("jb.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.25);
+    z-index: -1;
+}
+
+/* ===== START SCREEN ===== */
+
+#start-screen {
+    position: fixed;
+    inset: 0;
+    background: url("R.png") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    cursor: pointer;
+    transition: opacity 1s ease;
+}
+
+.start-frame {
+    width: 500px;
+    max-width: 90%;
+    min-height: 220px;
+    background-image: url("cframe.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 80px;
+    text-align: center;
+}
+
+.start-text {
+    font-family: "Lavishly Yours", cursive;
+    font-size: 55px;
+    color: #000;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+/* ===== TITLE FRAME ===== */
+
+.title-frame {
+    width: 750px;
+    max-width: 95%;
+    min-height: 260px;
+    background-image: url("tframe.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 80px auto 40px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 90px 120px;
+    animation: fadeInUp 2s forwards;
+}
+
+.lavishly-yours-regular {
+    font-family: "Lavishly Yours", cursive;
+    font-size: 60px;
+    margin: 0;
+}
+
+.intro {
+    font-family: "Oooh Baby", cursive;
+    font-size: 36px;
+    margin-top: 10px;
+}
+
+/* ===== TIMELINE ===== */
+
+.timeline {
+    width: 90%;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 120px 0;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 1.5s ease;
+}
+
+.timeline-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+/* ===== MEDIA ===== */
+
+.media-frame {
+    width: 350px;
+    max-width: 100%;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.timeline-item.show .media-frame {
+    opacity: 1;
+}
+
+.media-frame img,
+.media-frame video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+.media-frame video {
+    transform: rotate(270deg);
+    transform-origin: center;
+    max-height: 350px;
+    width: auto;
+}
+
+/* ===== MESSAGE FRAME ===== */
+
+.message {
+    width: 500px;
+    max-width: 100%;
+    min-height: 220px;
+    background-image: url("frame.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 100px;
+    text-align: center;
+    font-family: "Pacifico", cursive;
+    font-size: 22px;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.5s ease;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+}
+
+.timeline-item.show .message {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== FINAL SECTION ===== */
+
+.final-section {
+    width: 85%;
+    margin: 150px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+}
+
+.final-frame {
+    width: 600px;
+    max-width: 100%;
+    min-height: 300px;
+    background-image: url("Fframe.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 100px;
+    text-align: center;
+}
+
+.final-text {
+    font-family: "Lavishly Yours", cursive;
+    font-size: 70px;
+    line-height: 1.2;
+}
+
+.final-section img {
+    width: 300px;
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+/* ===== MOBILE FIX ===== */
+
+@media (max-width: 900px) {
+
+    body { background-attachment: scroll; }
+
+    .timeline-item {
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin: 80px 0;
+    }
+
+    .media-frame,
+    .message,
+    .final-frame {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .media-frame {
+        width: 85%;
+        margin-bottom: 25px;
+    }
+
+    .message {
+        width: 90%;
+        padding: 50px 40px;
+        font-size: 18px;
+    }
+
+    .final-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .final-text {
+        font-size: 45px;
+    }
+
+    .start-frame {
+        padding: 40px;
+    }
+
+    .start-text {
+        font-size: 40px;
+    }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- START SCREEN -->
+<div id="start-screen">
+    <div class="start-frame">
+        <div class="start-text">Tap to Reveal.... ❤️</div>
+    </div>
+</div>
+
+<!-- Background Music -->
+<audio id="bgmusic" loop>
+    <source src="j.mp3" type="audio/mpeg">
+</audio>
+
+<div class="title-frame">
+    <h1 class="lavishly-yours-regular">Journey of Life</h1>
+    <p class="intro">We grew but, Our bond grew more...</p>
+</div>
+
+<div class="timeline">
+
+<div class="timeline-item">
+    <div class="media-frame"><img src="1.JPG"></div>
+    <div class="message">Nafila, I don’t think you fully realize how much you matter to me.</div>
+</div>
+
+<div class="timeline-item">
+    <div class="media-frame"><img src="2.JPG"></div>
+    <div class="message">From where we started to where we are now, we’ve grown stronger than I ever imagined.</div>
+</div>
+
+<div class="timeline-item">
+    <div class="media-frame"><img src="3.JPG"></div>
+    <div class="message">Through misunderstandings, laughter, random talks, and tough days — we chose to stay.</div>
+</div>
+
+<div class="timeline-item">
+    <div class="media-frame"><img src="4.jpeg"></div>
+    <div class="message">And that means everything to me.</div>
+</div>
+
+<div class="timeline-item">
+    <div class="media-frame">
+        <video autoplay muted loop playsinline>
+            <source src="5.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="message">Just know this: no matter what happens, if you ever need someone, I’ll be there.</div>
+</div>
+
+<div class="timeline-item">
+    <div class="media-frame"><img src="6.jpeg"></div>
+    <div class="message">Not sometimes. Not conditionally. Always.</div>
+</div>
+
+</div>
+
+<div class="final-section">
+    <div class="final-frame">
+        <div class="final-text">
+            Once again,<br>
+            Happy Birthday Nafila ❤️.....
+        </div>
+    </div>
+    <img src="7.jpg">
+</div>
+
+<script>
+
+const items = document.querySelectorAll(".timeline-item");
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+    });
+}, { threshold: 0.2 });
+items.forEach(item => observer.observe(item));
+
+const startScreen = document.getElementById("start-screen");
+const music = document.getElementById("bgmusic");
+
+startScreen.addEventListener("click", () => {
+    music.volume = 0.5;
+    music.play();
+    startScreen.style.opacity = "0";
+    setTimeout(() => {
+        startScreen.style.display = "none";
+    }, 1000);
+});
+
+</script>
+
+</body>
+</html>

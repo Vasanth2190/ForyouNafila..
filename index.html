@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nafila's Birthday ❤️</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&family=Short+Stack&family=Oooh+Baby&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    background-image: url("b.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 40px 20px;
+    margin: 0;
+}
+
+/* ================= START OVERLAY ================= */
+
+#startScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("BC.png") no-repeat center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#startFrame {
+    width: 80%;
+    max-width: 400px;
+    height: 150px;
+    background: url("cframe.png") no-repeat center;
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#startText {
+    font-family: "Short Stack", cursive;
+    font-size: 22px;
+}
+
+/* ================= MAIN CONTENT ================= */
+
+#content {
+    width: 100%;
+    display: none; /* hidden until start clicked */
+}
+
+/* CENTER TITLE FRAME */
+.center-frame {
+    width: 90%;
+    max-width: 700px;
+    min-height: 220px;
+    margin: 0 auto 60px auto;
+    background: url("tcframe.png") no-repeat center;
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+}
+
+/* ROW LAYOUT */
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 60px 0;
+    width: 100%;
+}
+
+/* SIDE FRAME */
+.side-frame {
+    width: 85%;
+    max-width: 650px;
+    min-height: 200px;
+    background: url("cframe.png") no-repeat center;
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.spacer {
+    width: 15%;
+}
+
+/* Fonts */
+.lavishly-yours-regular {
+  font-family: "Lavishly Yours", cursive;
+  font-size: 50px;
+}
+
+.short-stack-regular {
+  font-family: "Short Stack", cursive;
+  font-size: 20px;
+}
+
+.poem-font {
+  font-family: "Oooh Baby", cursive;
+  font-size: 24px;
+}
+
+/* Cursor */
+.typing-cursor::after {
+  content: "|";
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Button */
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    background-color: pink;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin: 60px auto;
+}
+
+button:hover {
+    background-color: hotpink;
+    color: white;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .spacer {
+        display: none;
+    }
+
+    .side-frame {
+        width: 95%;
+        margin: 20px 0;
+    }
+
+    .center-frame {
+        width: 95%;
+    }
+
+    .lavishly-yours-regular {
+        font-size: 38px;
+    }
+
+    .poem-font {
+        font-size: 20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- START SCREEN -->
+<div id="startScreen">
+    <div id="startFrame" onclick="startExperience()">
+        <div id="startText">Click to Start 🤍</div>
+    </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="bgMusic">
+    <source src="b.mp3" type="audio/mpeg">
+</audio>
+
+<!-- MAIN CONTENT -->
+<div id="content"></div>
+
+<script>
+
+const content = document.getElementById("content");
+let isLeft = true;
+
+/* START FUNCTION */
+function startExperience() {
+    document.getElementById("startScreen").style.display = "none";
+    content.style.display = "block";
+    document.getElementById("bgMusic").play();
+    startSequence();
+}
+
+/* TYPEWRITER */
+function typeText(element, text, speed, callback) {
+    let i = 0;
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        } else {
+            element.classList.remove("typing-cursor");
+            setTimeout(callback, 800);
+        }
+    }
+    type();
+}
+
+/* CENTER TITLE */
+function addCenterFrame(text, callback) {
+    const frame = document.createElement("div");
+    frame.className = "center-frame";
+
+    const h1 = document.createElement("h1");
+    h1.className = "lavishly-yours-regular typing-cursor";
+
+    frame.appendChild(h1);
+    content.appendChild(frame);
+
+    typeText(h1, text, 80, callback);
+}
+
+/* SIDE FRAME */
+function addSideFrame(text, fontClass, callback) {
+
+    const row = document.createElement("div");
+    row.className = "row";
+
+    const spacer = document.createElement("div");
+    spacer.className = "spacer";
+
+    const frame = document.createElement("div");
+    frame.className = "side-frame";
+
+    const p = document.createElement("p");
+    p.className = fontClass + " typing-cursor";
+
+    frame.appendChild(p);
+
+    if (isLeft) {
+        row.appendChild(frame);
+        row.appendChild(spacer);
+    } else {
+        row.appendChild(spacer);
+        row.appendChild(frame);
+    }
+
+    isLeft = !isLeft;
+
+    content.appendChild(row);
+
+    typeText(p, text, 40, callback);
+}
+
+function startSequence() {
+
+    addCenterFrame("Happy Birthday to you Nafila ❤️", function() {
+
+        const messages = [
+"I am really Sorry For being this late for your birthday but, I planned this months ago I just never got the time for it.",
+"Growing Up sucks I guess.",
+"Mujhe yaad hai jab maine tujhe pehli baar dekha tha,",
+"Aisa laga jaise zindagi mein pehli baar koi phool khila tha.",
+"Hawa bhi us din kuch alag si mehki thi,",
+"Jaise kismat ne chupke se muskurakar mujhe chuna tha.",
+"Baat shuru hone mein waqt zaroor lag gaya,",
+"Khamoshiyon ne pehle apna farz nibhaya.",
+"Magar dheere dheere alfaaz raaste banate gaye,",
+"Aur baaton baaton mein hum yahan tak aa gaye.",
+"Meri mushkilon mein jab andhera sa chhaya tha,",
+"Tune hi toh haath pakad kar mujhe sambhala tha.",
+"Meri har bakwas, har bewajah si baat par,",
+"Tune hamesha hans kar hi jawaab diya tha.",
+"Is zindagi ke lambe aur anjaane raaston par,",
+"Mere saath chalne ke liye shukriya.",
+"Har mod par mera saaya banne ke liye shukriya.",
+"Bas yunhi rehna… kyunki tere saath hi mera sabse khoobsurat safar hai."
+        ];
+
+        let i = 0;
+
+        function next() {
+            if (i < messages.length) {
+
+                const font = i < 2 
+                    ? "short-stack-regular"
+                    : "poem-font";
+
+                addSideFrame(messages[i], font, function() {
+                    i++;
+                    next();
+                });
+
+            } else {
+                showButton();
+            }
+        }
+
+        next();
+    });
+}
+
+function showButton() {
+    const btn = document.createElement("button");
+    btn.innerText = "Continue the Journey ❤️";
+    btn.onclick = function() {
+        window.location.href = "2nd.html";
+    };
+    content.appendChild(btn);
+}
+
+</script>
+
+</body>
+</html>
