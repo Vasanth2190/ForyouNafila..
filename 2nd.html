@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>A Letter For You 🤍</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+AU+NSW:wght@400&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    background-image: url("b.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Instruction */
+#instruction {
+    font-family: "Playwrite AU NSW", cursive;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* Stage */
+#stage {
+    width: 95%;
+    max-width: 850px;
+    margin: auto;
+}
+
+/* Images */
+.stage-img {
+    width: 100%;
+    display: block;
+}
+
+/* LETTER WRAPPER */
+#letterContainer {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Decorative top */
+.letter-top {
+    width: 100%;
+    height: 150px;
+    background: url("letter.jpg") no-repeat top center;
+    background-size: cover;
+}
+
+/* Middle expandable part */
+.letter-middle {
+    background-color: #fffaf0;
+    padding: 40px 40px;
+    font-family: "Playwrite AU NSW", cursive;
+    font-size: 20px;
+    line-height: 1.9;
+    text-align: left;
+}
+
+/* Decorative bottom */
+.letter-bottom {
+    width: 100%;
+    height: 150px;
+    background: url("letter.jpg") no-repeat bottom center;
+    background-size: cover;
+}
+
+/* Continue Frame */
+#continueFrame {
+    margin: 60px auto 0 auto;
+    width: 90%;
+    max-width: 500px;
+    height: 150px;
+    background: url("cframe.png") no-repeat center;
+    background-size: 100% 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#continueBtn {
+    font-family: "Playwrite AU NSW", cursive;
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    background-color: pink;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#continueBtn:hover {
+    background-color: hotpink;
+    color: white;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .letter-middle {
+        padding: 25px;
+        font-size: 17px;
+    }
+
+    #continueFrame {
+        height: 120px;
+    }
+
+    #continueBtn {
+        font-size: 16px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="instruction">Click to Open the Letter 🤍</div>
+
+<div id="stage">
+
+    <img src="cover.png" id="cover" class="stage-img" onclick="openLetter()">
+
+    <img src="opened_cover.png" id="openedCover" class="stage-img" style="display:none;">
+
+    <div id="letterContainer">
+
+        <div class="letter-top"></div>
+
+        <div class="letter-middle">
+            <div id="letterText"></div>
+        </div>
+
+        <div class="letter-bottom"></div>
+
+    </div>
+
+</div>
+
+<div id="continueFrame">
+    <button id="continueBtn" onclick="goNext()">Continue 🤍</button>
+</div>
+
+<audio id="bgMusic">
+    <source src="2nd.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const lines = [
+"Happy Birthday, Nafila 🤍",
+"",
+"Today is about celebrating you — the person who brings warmth, strength, and light into my life in ways you probably don’t even realize.",
+"You matter to me more than I can properly put into words.",
+"From where we started to where we are now, we’ve grown stronger, closer, and more understanding — and that means everything to me.",
+"",
+"I truly wish that you get everything your heart desires.",
+"Every dream, every goal, every small happiness you secretly pray for — I hope life gives it to you in abundance.",
+"You deserve a life full of peace, success, love, and endless smiles.",
+"",
+"No matter where life takes us, just know this:",
+"I’ll always be there for you whenever you need me.",
+"Through the highs, the lows, and everything in between.",
+"",
+"Stay happy. Stay shining. Stay you.",
+"And may this year be the most beautiful one yet."
+];
+
+function openLetter() {
+
+    document.getElementById("instruction").style.display = "none";
+    document.getElementById("bgMusic").play();
+
+    document.getElementById("cover").style.display = "none";
+    document.getElementById("openedCover").style.display = "block";
+
+    setTimeout(() => {
+
+        document.getElementById("openedCover").style.display = "none";
+        document.getElementById("letterContainer").style.display = "block";
+
+        typeLines();
+
+    }, 1200);
+}
+
+function typeLines() {
+
+    const container = document.getElementById("letterText");
+    let lineIndex = 0;
+
+    function typeLine() {
+
+        if (lineIndex < lines.length) {
+
+            const p = document.createElement("div");
+            container.appendChild(p);
+
+            let charIndex = 0;
+
+            function typeChar() {
+                if (charIndex < lines[lineIndex].length) {
+                    p.innerHTML += lines[lineIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeChar, 25);
+                } else {
+                    lineIndex++;
+                    setTimeout(typeLine, 600);
+                }
+            }
+
+            typeChar();
+
+        } else {
+            document.getElementById("continueFrame").style.display = "flex";
+        }
+    }
+
+    typeLine();
+}
+
+function goNext() {
+    window.location.href = "Journey.html";
+}
+
+</script>
+
+</body>
+</html>
